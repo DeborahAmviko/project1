@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<html>
+  <head>
+      <link rel="stylesheet" href="{% static 'css/account.css' %}">
+  </head>
+<body>
+{% if user.is_authenticated %}
+ <div id="log"><a href="{% url 'login' %}"><button style="background-color:green;color:white;">logout</button></a></div>
+ <form class="form-inline" method="POST" enctype="multipart/form-data"> 
+        {% csrf_token %}
+        <div>
+          <label for="name">File: </label>
+          <div>
+            <input type="file" name="csv_file" required="True">
+          </div>          
+        </div>
+        <div>          
+          <div style="margin-bottom:10px;">
+             <button> <span style="margin-right:5px;"></span>Upload </button>
+          </div> 
+        </div>
+    </form>
+  {% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}
+</body>
+</html>
